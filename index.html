@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administración Estratégica · 2do Parcial — Mis apuntes</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2712%27 fill=%27%231b3a5c%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Georgia,serif%27 font-size=%2730%27 font-weight=%27700%27 fill=%27%23f4f0e6%27 text-anchor=%27middle%27%3EAE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4f0e6;--paper-2:#ece6d8;--ink:#1c2227;--ink-soft:#4a5259;--line:#cdc4b0;
+    --u3:#1b3a5c;--u4:#a04a2b;--u5:#1f5a3c;--u6:#5a3d6e;--brand:#1b3a5c;--gold:#c9a44a;--red:#a04a2b;
+    --ok:#1f5a3c;--ok-soft:#dfe8e2;--no:#a04a2b;--no-soft:#f3dcd6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:"Atkinson Hyperlegible","Segoe UI",Verdana,sans-serif;font-size:17px;line-height:1.58;-webkit-font-smoothing:antialiased;position:relative}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;opacity:.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(244,240,230,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1100px;margin:0 auto;padding:12px 28px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .nav-brand{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-right:auto;font-weight:700}
+  .chip{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;text-decoration:none;color:var(--ink);border:1.5px solid var(--ink);border-radius:999px;padding:5px 12px;transition:all .18s ease;background:transparent}
+  .chip:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+
+  header.hero{padding:80px 0 50px;border-bottom:3px solid var(--ink)}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--brand);font-weight:700}
+  h1{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(44px,8vw,104px);line-height:.92;letter-spacing:-.02em;margin:14px 0 0}
+  h1 em{font-style:italic;font-weight:500;color:var(--brand)}
+  .hero-meta{display:flex;gap:36px;flex-wrap:wrap;margin-top:34px;font-family:"JetBrains Mono",monospace;font-size:13px}
+  .hero-meta b{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin-bottom:4px}
+  .hero-meta span{font-size:20px;font-family:"Fraunces",serif;font-weight:600;color:var(--ink)}
+  .hero-lead{max-width:720px;margin-top:30px;font-size:20px;color:var(--ink-soft);line-height:1.5}
+  .hero-lead b{color:var(--ink);font-weight:700}
+
+  section.unit{padding:60px 0;border-bottom:1px solid var(--line)}
+  .unit-head{display:flex;align-items:baseline;gap:20px;margin-bottom:14px}
+  .unit-num{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(60px,11vw,130px);line-height:.8;color:var(--accent);opacity:.9;letter-spacing:-.04em}
+  .unit-titles .u-kicker{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .unit-titles h2{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(28px,4.5vw,48px);line-height:1.02;letter-spacing:-.01em;margin-top:6px}
+  .unit-weight{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--accent);border-radius:999px;padding:4px 11px;display:inline-block;margin-bottom:26px}
+
+  .card{background:var(--paper-2);border:1.5px solid var(--line);border-radius:14px;padding:24px 28px;margin-bottom:18px;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent)}
+  .h-main{font-family:"Fraunces",serif;font-weight:600;font-size:23px;margin-bottom:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .h-main .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none}
+  .h-main .tag{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1.5px solid var(--accent);border-radius:999px;padding:3px 9px}
+  .h-sub{font-family:"Fraunces",serif;font-weight:600;font-size:18px;color:var(--accent);margin:20px 0 6px;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:4px}
+  .def{margin-bottom:4px}
+  .def b{font-weight:700}
+  .fbox{font-family:"Fraunces",serif;font-weight:600;font-size:20px;text-align:center;background:var(--accent);color:#fff;border-radius:11px;padding:14px 18px;margin:14px 0;line-height:1.35}
+  .fbox small{display:block;font-family:"Atkinson Hyperlegible",sans-serif;font-weight:400;font-size:13px;opacity:.92;margin-top:6px}
+
+  ul{list-style:none;margin-top:6px}
+  ul li{padding:5px 0 5px 24px;position:relative}
+  ul li::before{content:"–";position:absolute;left:4px;color:var(--accent);font-weight:700}
+  ul li b{font-weight:700}
+  ul.sub{margin:2px 0 2px 24px}
+  ul.sub li{font-size:15.5px;color:var(--ink-soft)}
+
+  ol{list-style:none;counter-reset:s;margin-top:6px}
+  ol li{counter-increment:s;padding:5px 0 5px 36px;position:relative}
+  ol li::before{content:counter(s);position:absolute;left:0;top:6px;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:12px;background:var(--accent);color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:920px){.grid4{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr}}
+  @media(max-width:720px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.unit-head{flex-direction:column;gap:6px}.wrap{padding:0 18px}.nav-inner,.nav-chips{padding-left:18px;padding-right:18px}.fbox{font-size:16px;padding:12px 10px}.card{padding:20px 18px}.fgrid{grid-template-columns:1fr}.tbl-scroll table.eco{min-width:540px}.tree .tree-top{margin-bottom:10px}.tree .tree-kids::before{display:none}}
+
+  .mini{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:16px 18px}
+  .mini b{font-family:"Fraunces",serif;font-weight:600;color:var(--accent)}
+  .mini ul{margin-top:4px}
+  .mini ul li{padding:3px 0 3px 20px;font-size:15.5px}
+  .mini.danger{border-color:var(--no);background:var(--no-soft)}
+  .mini.danger b,.mini.danger ul li::before{color:var(--no)}
+  .mini.okk{border-color:var(--ok);background:var(--ok-soft)}
+  .mini.okk b,.mini.okk ul li::before{color:var(--ok)}
+  .mini .num{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.1em;display:block;margin-bottom:2px}
+  .mini .hint{display:block;margin-top:8px;font-size:14px;color:var(--ink-soft);border-top:1px dashed var(--line);padding-top:6px}
+  .mini .hint b{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+
+  table.eco{width:100%;border-collapse:collapse;font-size:15px;margin-top:10px}
+  table.eco th{background:var(--accent);color:#fff;padding:8px 10px;text-align:left;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+  table.eco td{padding:7px 10px;border-bottom:1px solid var(--line);background:#fff;vertical-align:top}
+  table.eco tr:nth-child(even) td{background:var(--paper)}
+  table.eco td b{font-weight:700}
+  table.eco td.soft{color:var(--ink-soft);font-size:14px}
+  .tbl-scroll{overflow-x:auto}
+  .mono{font-family:"JetBrains Mono",monospace;font-size:.92em}
+
+  table.matrix{width:100%;border-collapse:separate;border-spacing:6px;margin-top:10px}
+  table.matrix th{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);padding:6px;text-align:center}
+  table.matrix th.side{writing-mode:vertical-rl;transform:rotate(180deg);width:34px}
+  table.matrix td{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;vertical-align:top;width:50%}
+  table.matrix td>b:first-child{font-family:"Fraunces",serif;font-weight:600;color:var(--accent);font-size:17px;display:block;margin-bottom:2px}
+  table.matrix td i{display:block;font-family:"JetBrains Mono",monospace;font-style:normal;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+
+  .note{background:#fff;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 16px;font-size:15px;color:var(--ink-soft);margin-top:12px}
+  .note b{color:var(--ink)}
+  .star{background:#fff;border:2px solid var(--gold);border-radius:12px;padding:14px 18px;margin-top:14px}
+  .star .lbl{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8a6a1c;display:block;margin-bottom:5px}
+  .star ul li::before{color:#8a6a1c}
+
+  .pyr{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px}
+  .pyr figure{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+  .pyr svg{width:100%;height:auto;max-width:220px}
+  .pyr figcaption{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-top:6px}
+  @media(max-width:720px){.pyr{grid-template-columns:1fr}}
+
+  .tree{margin-top:12px}
+  .tree .tree-top{background:var(--accent);color:#fff;font-family:"Fraunces",serif;font-weight:600;font-size:18px;text-align:center;border-radius:10px;padding:10px 14px;max-width:420px;margin:0 auto 22px;position:relative}
+  .tree .tree-top::after{content:"";position:absolute;left:50%;bottom:-22px;width:2px;height:22px;background:var(--accent)}
+  .tree .tree-kids{position:relative}
+  .tree .tree-kids::before{content:"";position:absolute;left:12.5%;right:12.5%;top:-12px;height:2px;background:var(--accent)}
+  .tree .mini{position:relative}
+  .tree .mini::before{content:"";position:absolute;left:50%;top:-12px;width:2px;height:12px;background:var(--accent)}
+  .tree .mini b{display:block;margin-bottom:4px}
+  .tree .mini span{font-size:14.5px;color:var(--ink-soft)}
+  .lvl{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1.5px solid var(--accent);border-radius:999px;padding:1px 8px;margin-top:6px}
+
+  .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px;margin-top:10px}
+  .fcard{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px}
+  .fcard .lbl{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
+  .fcard .f{font-family:"Fraunces",serif;font-weight:600;font-size:17px;color:var(--ink);line-height:1.35}
+  .fcard .d{font-size:14.5px;color:var(--ink-soft);margin-top:8px}
+  .fcard .d b{color:var(--ink)}
+  .fcard .pts{float:right;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:#fff;background:var(--accent);border-radius:999px;padding:2px 8px}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  footer{padding:60px 0 90px;text-align:center}
+  footer p{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft)}
+
+  .modes{display:flex;gap:4px;background:var(--paper-2);border:1.5px solid var(--line);border-radius:999px;padding:4px;margin-left:auto}
+  .modes button{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);background:transparent;border:0;cursor:pointer;padding:6px 14px;border-radius:999px;transition:.16s}
+  .modes button:hover{color:var(--ink)}
+  .modes button.active{background:var(--ink);color:var(--paper)}
+  .nav-chips{max-width:1100px;margin:0 auto;padding:0 28px 12px;display:flex;gap:8px;flex-wrap:wrap}
+  .hidden{display:none!important}
+  .modeview{padding-bottom:40px}
+
+  .qwrap{max-width:760px;margin:46px auto 0}
+  .qtop{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-soft);letter-spacing:.04em}
+  .qtop b{color:var(--brand)}
+  .qcard{background:var(--paper-2);border:1.5px solid var(--line);border-radius:16px;padding:28px;position:relative;overflow:hidden}
+  .qcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent,var(--brand))}
+  .qcard .qgroup{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent,var(--brand));font-weight:700}
+  .qcard .qq{font-family:"Fraunces",serif;font-weight:600;font-size:24px;line-height:1.22;margin:10px 0 22px}
+  .opt{display:block;width:100%;text-align:left;cursor:pointer;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:11px;padding:14px 16px;margin-bottom:10px;font-size:16px;font-family:"Atkinson Hyperlegible",sans-serif;line-height:1.4;transition:.14s}
+  .opt:hover:not(:disabled){border-color:var(--ink)}
+  .opt:disabled{cursor:default}
+  .opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+  .opt.wrong{border-color:var(--no);background:var(--no-soft)}
+  .opt .mk{float:right;font-family:"JetBrains Mono",monospace;font-weight:700;margin-left:10px}
+  .qactions{margin-top:6px;display:flex;justify-content:flex-end;gap:10px}
+  .btn{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;background:var(--ink);color:var(--paper);border:0;padding:11px 20px;border-radius:10px;transition:.15s}
+  .btn:hover{filter:brightness(1.25)}
+  .btn.ghost{background:transparent;color:var(--ink-soft);box-shadow:inset 0 0 0 1.5px var(--line)}
+  .btn.ghost:hover{color:var(--ink)}
+  .fb{font-family:"JetBrains Mono",monospace;font-size:13px;margin:14px 0 2px;min-height:18px}
+  .fb.ok{color:var(--ok)}.fb.no{color:var(--no)}
+  .esc-input{width:100%;min-height:130px;resize:vertical;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;color:var(--ink);font-family:"Atkinson Hyperlegible",sans-serif;font-size:17px;line-height:1.55;padding:14px 16px;margin-bottom:14px}
+  .esc-input:focus{outline:none;border-color:var(--accent,var(--brand))}
+  .esc-input:disabled{opacity:.65}
+  .esc-answer{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
+  .esc-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft);display:block;margin-bottom:6px;font-weight:700}
+  .esc-yours p{font-size:16px;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 14px;white-space:pre-wrap;margin:0}
+  .esc-ok{border-left:4px solid var(--ok);padding-left:14px;margin-top:16px}
+  .esc-ok .ans{font-size:17px;margin:0}
+  .esc-rate{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-soft);display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .esc-rate .rate{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;cursor:pointer;background:var(--paper-2);border:1.5px solid var(--line);color:var(--ink);padding:8px 14px;border-radius:8px;transition:.14s}
+  .esc-rate .rate:hover{border-color:var(--accent,var(--brand));color:var(--accent,var(--brand))}
+
+  @media(max-width:720px){
+    body::before{display:none}
+    nav{backdrop-filter:none;background:rgba(244,240,230,.97)}
+    .reveal{transition-duration:.35s}
+    /* nav compacto: sin marca, modos en una fila, chips en una sola fila deslizable */
+    .nav-brand{display:none}
+    .nav-inner{padding:8px 14px}
+    .modes{margin:0 auto}
+    .modes button{padding:5px 12px;font-size:11px}
+    .nav-chips{flex-wrap:nowrap;overflow-x:auto;padding:0 14px 8px;gap:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .nav-chips::-webkit-scrollbar{display:none}
+    .chip{flex:none;white-space:nowrap;padding:4px 10px;font-size:11px}
+  }
+
+  @media print{
+    nav{display:none}
+    body::before{display:none}
+    .reveal{opacity:1;transform:none}
+    section.unit{padding:24px 0;break-inside:auto}
+    .card{break-inside:avoid;background:#fff}
+    #view-quiz,#view-escribir{display:none!important}
+  }
+  @media(max-width:720px){table.matrix{border-spacing:3px}table.matrix td{padding:8px 7px;font-size:13px}table.matrix td>b:first-child{font-size:14.5px}table.matrix th.side{width:20px;font-size:9px}table.matrix th{font-size:9px}.tbl-scroll table.eco{min-width:0!important;font-size:13px}table.eco th,table.eco td{padding:6px 6px}.mono{font-size:.85em}}</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">Administración Estratégica · 2do Parcial</span>
+    <div class="modes" id="modes">
+      <button data-mode="resumen" class="active">Resumen</button>
+      <button data-mode="quiz">Quiz</button>
+      <button data-mode="escribir">Escribir</button>
+    </div>
+  </div>
+  <div class="nav-chips" id="navchips">
+    <a class="chip" href="#u3">U3 · Estrategias</a><a class="chip" href="#u4">U4 · Globales</a><a class="chip" href="#u5">U5 · Cultura y cambio</a><a class="chip" href="#u6">U6 · Liderazgo</a><a class="chip" href="#parcial">Cómo es el parcial</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Mis apuntes · 2do Parcial · primera versión</p>
+    <h1>Administración Estratégica<br><em>2do Parcial</em></h1>
+    <p class="hero-lead">Recortado a <b>lo que la profesora dijo que entra</b> (repaso del 11/11): <b>U3</b> estrategias corporativas, competitivas, liderazgo y flexibilidad estratégica · <b>U4</b> perspectivas globales · <b>U5</b> cultura y cambio · <b>U6</b> liderazgo. El parcial es un <b>caso</b>: identificar + citar el dato + fundamentar.</p>
+    <div class="hero-meta">
+      <div><b>Unidades</b><span>3 · 4 · 5 · 6</span></div>
+      <div><b>Fuente</b><span>Repaso + clases 3 a 6</span></div>
+      <div><b>Cátedra</b><span>Administración Estratégica · UCES</span></div>
+    </div>
+  </header>
+
+  <div id="view-resumen">
+
+  <!-- ===================== U3 ===================== -->
+  <section class="unit reveal" id="u3" style="--accent:var(--u3)">
+    <div class="unit-head"><div class="unit-num">03</div>
+      <div class="unit-titles"><p class="u-kicker">Unidad 3 · puntos 3.4 · 3.5 · 3.6</p><h2>Estrategias</h2></div></div>
+    <span class="unit-weight">Corporativas (Fred David) · competitivas (Porter) · liderazgo y flexibilidad estratégica</span>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Estrategias corporativas<span class="tag">Fred David</span></p>
+      <p class="def">Determinan <b>hacia dónde puede crecer</b> una empresa (¿en qué negocios estamos y cómo crecemos?). Una empresa puede <b>combinar varias</b>. Las de Porter responden otra pregunta: ¿cómo competimos?</p>
+      <div class="tbl-scroll">
+      <table class="eco">
+        <thead><tr><th>Familia</th><th>Subtipo</th><th>Qué es</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="3"><b>Integración</b></td><td><b>Hacia adelante</b></td><td>Control sobre <b>distribuidores o minoristas</b>.</td></tr>
+          <tr><td><b>Hacia atrás</b></td><td>Control sobre <b>proveedores</b>.</td></tr>
+          <tr><td><b>Horizontal</b></td><td>Control sobre <b>competidores</b>.</td></tr>
+          <tr><td rowspan="3"><b>Intensivas</b></td><td><b>Penetración de mercado</b></td><td>Productos actuales en mercados actuales, para aumentar ventas o participación.</td></tr>
+          <tr><td><b>Desarrollo de mercado</b></td><td>Productos actuales en <b>mercados nuevos</b>.</td></tr>
+          <tr><td><b>Desarrollo de producto</b></td><td>Productos <b>nuevos o mejorados</b> para mercados actuales.</td></tr>
+          <tr><td rowspan="3"><b>Diversificación</b></td><td><b>Concéntrica</b></td><td>Producto nuevo <b>relacionado</b> con la actividad actual.</td></tr>
+          <tr><td><b>Horizontal</b></td><td>Producto nuevo <b>no relacionado</b>, dirigido a <b>clientes actuales</b>.</td></tr>
+          <tr><td><b>De conglomerados</b></td><td>Producto nuevo no relacionado, para <b>clientes nuevos</b>.</td></tr>
+          <tr><td rowspan="3"><b>Defensivas</b></td><td><b>Recorte de gastos</b></td><td>Reducir costos y activos.</td></tr>
+          <tr><td><b>Enajenación</b></td><td>Vender una división o parte de la empresa.</td></tr>
+          <tr><td><b>Liquidación</b></td><td>Vender todos los activos (último recurso).</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="note"><b>Jerarquía:</b> <b>corporativas</b> (¿en qué negocio estar?, las define la dirección) → <b>competitivas</b> (ventaja competitiva de cada unidad de negocio) → <b>funcionales</b> (cada área apoya a las otras dos). <b>Unidad de negocio:</b> división de una gran empresa que funciona de forma independiente y autónoma.</div>
+      <div class="note"><b>Integrar = tener propiedad o control</b> (ej.: una participación que dé el control de las decisiones). Comprarle siempre al mismo proveedor es solo una operación comercial.</div>
+    </div>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Pares que se confunden</p>
+      <div class="tbl-scroll">
+      <table class="eco">
+        <tbody>
+          <tr><td><b>Integración hacia atrás</b> vs <b>horizontal</b></td><td>¿El otro es mi <b>proveedor</b> o mi <b>competidor</b>?</td></tr>
+          <tr><td><b>Desarrollo de mercados</b> vs <b>integración hacia adelante</b></td><td>¿Llevo mi producto a un <b>lugar nuevo</b> o <b>tomo el control</b> de quien lo distribuye?</td></tr>
+          <tr><td><b>Desarrollo de productos</b> vs <b>diversificación concéntrica</b></td><td>¿<b>Mejoro</b> lo que vendo o <b>agrego algo nuevo</b> aunque relacionado?</td></tr>
+          <tr><td><b>Enajenación</b> vs <b>liquidación</b></td><td>¿Vendo <b>una parte</b> y sigo operando o vendo <b>todo</b>?</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Estrategias genéricas de Porter<span class="tag">cómo compite una empresa</span></p>
+      <ul>
+        <li><b>Liderazgo en costos:</b> ser el productor con el <b>menor costo</b>; se compite con precios bajos.</li>
+        <li><b>Diferenciación:</b> una cualidad que el mercado <b>percibe como única</b> (calidad, atención al cliente, etc.).</li>
+        <li><b>Enfoque:</b> apuntar a un <b>segmento específico</b>, liderando por costos o por diferenciación.</li>
+      </ul>
+      <p class="h-sub">Cómo fundamentar la elección</p>
+      <ol>
+        <li><b>Fuente de ventaja:</b> ¿qué valora el cliente: el precio, un atributo único, una atención a medida de un grupo?</li>
+        <li><b>¿Puede sostenerla?</b> ¿tiene escala? ¿atributos difíciles de copiar? ¿conoce un nicho mejor que nadie?</li>
+        <li><b>Descartá las otras dos con datos</b> del caso (ej.: «no es liderazgo en costos porque el caso dice que no tiene escala»).</li>
+      </ol>
+      <div class="star"><span class="lbl">Errores frecuentes</span><ul>
+        <li>Liderazgo en costos para una pyme sin escala.</li>
+        <li>Llamar «enfoque» a cualquier diferenciación: <b>exige un segmento estrecho y explícito</b>.</li>
+        <li>Responder con una estrategia de Fred David cuando se pregunta por Porter.</li>
+      </ul></div>
+      <div class="star"><span class="lbl">Riesgo a vigilar (Fred David, cap. 5, pp. 176-177)</span><ul>
+        <li><b>Diferenciación:</b> que los clientes no valoren el producto lo suficiente para pagar su precio, o que los competidores copien rápido lo que lo diferencia.</li>
+        <li><b>Enfoque:</b> que los competidores reconozcan y imiten la estrategia, que el segmento deje de ser rentable o que las preferencias se desvíen hacia el mercado general.</li>
+      </ul></div>
+    </div>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Liderazgo estratégico y flexibilidad estratégica<span class="tag">3.6</span></p>
+      <div class="grid2">
+        <div class="mini"><b>Liderazgo estratégico</b>
+          <ul><li><b>Orientar</b> a la organización y <b>anticiparse</b> a los cambios.</li><li><b>Mantener la flexibilidad.</b></li><li><b>Facultar a otros</b> para generar el cambio (no decidir solo).</li></ul></div>
+        <div class="mini"><b>Flexibilidad estratégica</b>
+          <ul><li><b>Reconocer</b> los cambios importantes del entorno.</li><li><b>Comprometer recursos con rapidez.</b></li><li><b>Corregir</b> una decisión que no funciona.</li></ul></div>
+      </div>
+      <div class="note"><b>Se reconocen en:</b> tableros de monitoreo, anticipar problemas, planes de contingencia, contratos con cláusulas de salida, revisiones periódicas del plan. <b>Falta de flexibilidad:</b> «ya invertimos demasiado como para echarnos atrás».</div>
+    </div>
+  </section>
+
+  <!-- ===================== U4 ===================== -->
+  <section class="unit reveal" id="u4" style="--accent:var(--u4)">
+    <div class="unit-head"><div class="unit-num">04</div>
+      <div class="unit-titles"><p class="u-kicker">Unidad 4 · punto 4.1</p><h2>Perspectivas globales</h2></div></div>
+    <span class="unit-weight">Etnocéntrica · policéntrica · geocéntrica</span>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Tres posturas ante el mundo<span class="tag">Robbins/Coulter</span></p>
+      <div class="tbl-scroll">
+      <table class="eco">
+        <thead><tr><th></th><th>Etnocéntrica</th><th>Policéntrica</th><th>Geocéntrica</th></tr></thead>
+        <tbody>
+          <tr><td><b>Idea central</b></td><td>Prioriza el país de <b>origen</b>: los mejores métodos son los de la matriz; poco margen local</td><td>Prioriza el país <b>donde opera</b>: los gerentes locales conocen mejor su mercado y deciden</td><td>Prioriza el <b>mundo</b>: los mejores métodos y empleados de todos lados, con adaptación local</td></tr>
+          <tr><td><b>En el caso</b></td><td>«Así se hace en casa»; manual de la matriz al pie de la letra</td><td>«Ellos conocen su mercado; mejor no nos metemos»; la matriz no interviene</td><td>Estándares globales + adaptación local; equipos mixtos</td></tr>
+          <tr><td><b>Inconvenientes</b></td><td>Administración ineficaz · inflexibilidad · retrocesos sociales y políticos</td><td>Duplicación del trabajo · menor eficiencia · difícil sostener objetivos globales; riesgo de perder la identidad común</td><td>Difícil alcanzar las metas · los gerentes necesitan conocimiento local y global</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="note"><b>Atención: geocéntrica ≠ policéntrica.</b> Geocentrismo es <b>combinar</b>, no delegar todo. Tampoco equivale a volver a la etnocéntrica.</div>
+    </div>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Tipos de organización global<span class="tag">clase 07/10 · puede salir en un caso</span></p>
+      <div class="grid3">
+        <div class="mini"><b>Corporación multinacional</b><br>Se dirige desde la <b>casa matriz</b> del país de origen. ↔ <b>etnocéntrica</b>.</div>
+        <div class="mini"><b>Corporación trasnacional</b><br><b>Descentraliza</b> las decisiones; más autonomía local. ↔ <b>policéntrica</b>.</div>
+        <div class="mini"><b>Organización sin fronteras</b><br>Aprovecha conocimientos y recursos de distintos países. ↔ <b>geocéntrica</b>.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== U5 ===================== -->
+  <section class="unit reveal" id="u5" style="--accent:var(--u5)">
+    <div class="unit-head"><div class="unit-num">05</div>
+      <div class="unit-titles"><p class="u-kicker">Unidad 5 · puntos 5.1 · 5.2 · 5.5 · 5.6</p><h2>Cultura y cambio</h2></div></div>
+    <span class="unit-weight">Siete dimensiones · fuerte y débil · cambio · Lewin · resistencia</span>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Cultura organizacional y sus siete dimensiones<span class="tag">Robbins/Coulter</span></p>
+      <p class="def"><b>Cultura:</b> sistema de significados y valores <b>compartidos</b> que distingue a una organización de otra y orienta cómo piensan, actúan y deciden. <b>Describe; no evalúa.</b></p>
+      <div class="tbl-scroll">
+      <table class="eco">
+        <thead><tr><th>Dimensión</th><th>Grado en que…</th></tr></thead>
+        <tbody>
+          <tr><td><b>1 · Innovación y riesgos</b></td><td>se alienta a innovar y asumir riesgos.</td></tr>
+          <tr><td><b>2 · Atención a los detalles</b></td><td>se espera precisión y cuidado de los detalles.</td></tr>
+          <tr><td><b>3 · Orientación a los resultados</b></td><td>importan los resultados por encima de los procedimientos.</td></tr>
+          <tr><td><b>4 · Orientación a las personas</b></td><td>las decisiones consideran el efecto sobre los empleados.</td></tr>
+          <tr><td><b>5 · Orientación a los equipos</b></td><td>el trabajo se organiza en equipos más que individualmente.</td></tr>
+          <tr><td><b>6 · Energía (agresividad)</b></td><td>las personas son competitivas y buscan destacarse (<b>vs.</b> cooperadoras).</td></tr>
+          <tr><td><b>7 · Estabilidad</b></td><td>se mantiene el funcionamiento actual en lugar de buscar cambios.</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="star"><span class="lbl">Cómo responder en un caso</span><ul>
+        <li><b>Nombrar la dimensión, decir si es ALTA o BAJA y citar el dato del caso.</b> Ej.: «Orientación a las personas: ALTA, porque la gerente consulta al equipo antes de las decisiones que lo afectan.»</li>
+        <li>Hofstede y GLOBE describen culturas <b>nacionales</b> (U4): no se usan para una empresa.</li>
+      </ul></div>
+    </div>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Cultura vs. clima<span class="tag">Chiavenato</span></p>
+      <div class="tbl-scroll">
+      <table class="eco">
+        <thead><tr><th></th><th>Cultura</th><th>Clima</th></tr></thead>
+        <tbody>
+          <tr><td><b>Pregunta</b></td><td>«¿Cómo hacemos las cosas acá?»</td><td>«¿Cómo me siento trabajando acá?»</td></tr>
+          <tr><td><b>Carácter</b></td><td><b>Descriptivo</b> (valores, normas, ritos)</td><td><b>Evaluativo</b> (positivo o negativo; moral, motivación)</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Culturas fuertes y débiles</p>
+      <div class="grid2">
+        <div class="mini okk"><b>Fuerte</b><br>Valores <b>muy arraigados y compartidos</b> por la mayoría: compromiso, pertenencia, coordinación y menos supervisión. Riesgo: puede impedir ensayar métodos nuevos en épocas de cambio.</div>
+        <div class="mini danger"><b>Débil</b><br>Valores <b>poco claros</b> y poco compartidos, con poca influencia en el comportamiento: falta de compromiso, confusión y formas de trabajo distintas.</div>
+      </div>
+      <p class="h-sub">¿De qué depende la fuerza?</p>
+      <p class="def"><b>Tamaño</b> (a más personas, más difícil) · <b>antigüedad</b> (el tiempo consolida) · <b>rotación</b> (si la gente se va, los valores no se transmiten) · <b>fuerza del origen</b> (influencia de los fundadores).</p>
+      <div class="note"><b>Error frecuente:</b> confundir formalización con fuerza. Muchas reglas escritas no hacen fuerte a una cultura: lo que define la fuerza es cuán arraigados y compartidos están los valores.</div>
+    </div>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Cambio organizacional<span class="tag">Robbins/Coulter · cap. 13</span></p>
+      <p class="def"><b>Cambio:</b> modificación de la estructura, la tecnología o las personas para mejorar el funcionamiento o adaptarse al entorno.</p>
+      <div class="grid3">
+        <div class="mini"><b>Estructural</b><br>Puestos, responsabilidades, autoridad, forma de organizar el trabajo.</div>
+        <div class="mini"><b>Tecnológico</b><br>Equipos, herramientas, procesos; la forma de hacer el trabajo.</div>
+        <div class="mini"><b>De personas</b><br>Actitudes, comportamientos, habilidades, relaciones.</div>
+      </div>
+      <p class="h-sub">Dos miradas</p>
+      <ul>
+        <li><b>Aguas tranquilas:</b> barco en un mar calmo; el cambio es una <b>interrupción ocasional</b> del equilibrio (se corresponde con Lewin).</li>
+        <li><b>Rápidos en aguas turbulentas:</b> balsa en un río con rápidos; el cambio es <b>permanente</b> y hay que adaptarse en forma continua (describe mejor el entorno actual).</li>
+      </ul>
+      <p class="h-sub">Modelo de Lewin</p>
+      <div class="grid3">
+        <div class="mini"><span class="num">1</span><b>Descongelamiento</b><br>Preparar a las personas y explicar por qué es necesario: aumentar las fuerzas a favor y reducir las que frenan.<span class="hint"><b>Acciones:</b> mostrar datos · aclarar qué no cambia · escuchar los temores.</span></div>
+        <div class="mini"><span class="num">2</span><b>Cambio</b><br>Implementar las nuevas formas de trabajo, tecnologías o comportamientos.<span class="hint"><b>Acciones:</b> capacitar · hacer participar a quienes se resisten · implementar gradualmente.</span></div>
+        <div class="mini"><span class="num">3</span><b>Recongelamiento</b><br>Consolidar el cambio para que se mantenga en el tiempo.<span class="hint"><b>Acciones:</b> formalizar procedimientos · reconocer a quienes lo adoptan · medir y comunicar mejoras.</span></div>
+      </div>
+      <p class="h-sub">Resistencia: seis acciones</p>
+      <p class="def"><b>Educación y comunicación</b> · <b>participación</b> · <b>facilitación y apoyo</b> · <b>negociación</b> · <b>manipulación y control</b> · <b>coerción</b>. La más adecuada depende del origen de la resistencia.</p>
+    </div>
+  </section>
+
+  <!-- ===================== U6 ===================== -->
+  <section class="unit reveal" id="u6" style="--accent:var(--u6)">
+    <div class="unit-head"><div class="unit-num">06</div>
+      <div class="unit-titles"><p class="u-kicker">Unidad 6 · puntos 7.1 · 7.2 · 7.3</p><h2>Liderazgo</h2></div></div>
+    <span class="unit-weight">Líder y liderazgo · rasgos · teorías conductuales · parrilla gerencial</span>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Líder y liderazgo</p>
+      <p class="def"><b>Dirección:</b> motivación + comunicación + liderazgo (rol interpersonal).</p>
+      <p class="def"><b>Liderazgo (Robbins/Coulter):</b> proceso de <b>influir en un grupo</b> para orientarlo hacia el logro de objetivos. No es solo dar órdenes: es motivar y guiar. <b>Líder:</b> alguien que puede influir en otros y posee autoridad gerencial.</p>
+      <p class="def"><b>Chiavenato:</b> capacidad de influir en las personas para que ejecuten lo que deben hacer (la capacidad de motivar del líder + la tendencia de los seguidores a seguirlo).</p>
+      <div class="grid2">
+        <div class="mini"><b>Gerente</b><br>Es <b>asignado</b>; influye por la autoridad formal del cargo.</div>
+        <div class="mini"><b>Líder</b><br>Es designado o <b>surge</b>; su influencia va más allá de la autoridad formal.</div>
+      </div>
+      <div class="note">Idealmente todo gerente debería ser líder, pero no todo líder debe ser gerente. <b>Líder formal</b> (con cargo) vs. <b>informal</b> (surge en el grupo). <b>Continuo de la influencia:</b> coacción → presión → persuasión → sugestión → emulación.</div>
+      <p class="h-sub">Fuentes del poder</p>
+      <div class="grid2">
+        <div class="mini"><b>Derivadas del puesto</b><br>Legítimo · de recompensa · coercitivo.</div>
+        <div class="mini"><b>Personal o informal</b><br>Experto · referente.</div>
+      </div>
+      <p class="def"><b>Autoridad sin liderazgo:</b> el gerente que solo tiene los poderes derivados del puesto. <b>Liderazgo sin cargo:</b> un empleado con poder personal o informal.</p>
+    </div>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Teoría de los rasgos: lo que el líder <i>es</i><span class="tag">Robbins/Coulter</span></p>
+      <p class="def">Busca las características personales que diferencian a los líderes. Los siete rasgos: <b>dinamismo</b> (impulso, ambición) · <b>deseo de dirigir</b> · <b>honestidad e integridad</b> (coherencia entre lo que dice y hace; con la capacidad, reaparece en la confianza) · <b>confianza en sí mismo</b> · <b>inteligencia</b> · <b>conocimientos pertinentes</b> del trabajo · <b>extraversión</b>.</p>
+      <div class="star"><span class="lbl">Limitación</span><ul>
+        <li><b>Tener estos rasgos no garantiza ser un líder eficaz:</b> también influyen el grupo y la situación. No se encontró un conjunto de rasgos que distinga siempre a los líderes.</li>
+        <li>En un caso: <b>citá la frase que evidencia cada rasgo.</b></li>
+      </ul></div>
+    </div>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Teorías conductuales: lo que el líder <i>hace</i><span class="tag">Robbins/Coulter</span></p>
+      <div class="grid3">
+        <div class="mini"><b>Iowa</b>
+          <ul><li><b>Autocrático:</b> centraliza y decide solo.</li><li><b>Democrático:</b> fomenta la participación, escucha y delega.</li><li><b>Laissez-faire:</b> libertad total al grupo.</li></ul>
+          <span class="hint">No hay un estilo siempre mejor; el democrático, más eficaz al principio y con mayor satisfacción.</span></div>
+        <div class="mini"><b>Ohio</b>
+          <ul><li><b>Estructura de iniciación:</b> organiza tareas, funciones, objetivos y procedimientos.</li><li><b>Consideración:</b> relaciones de confianza; atiende ideas y sentimientos.</li></ul>
+          <span class="hint">Alta o baja en cada una; el «alto-alto» rinde con frecuencia, pero no siempre.</span></div>
+        <div class="mini"><b>Michigan</b><br>Líder <b>orientado hacia los empleados</b> (relaciones) vs. <b>hacia la producción</b> (tareas). Favoreció al primero.</div>
+      </div>
+      <p class="h-sub">Parrilla gerencial (Blake y Mouton)</p>
+      <p class="def">Dos ejes de 1 a 9: <b>interés por la producción</b> e <b>interés por las personas</b> (se escribe producción . personas).</p>
+      <div class="tbl-scroll">
+      <table class="eco">
+        <tbody>
+          <tr><td><b>1.1</b> Gerencia empobrecida</td><td>Mínimo interés por ambas.</td><td><b>9.1</b> Gerencia de tareas</td><td>Prioridad a los resultados, poco a la gente.</td></tr>
+          <tr><td><b>1.9</b> Club campestre</td><td>Prioridad a las personas y al buen clima.</td><td><b>5.5</b> A mitad del camino</td><td>Equilibrio intermedio.</td></tr>
+          <tr><td><b>9.9</b> Gerencia de equipos</td><td>Alto interés por ambas; el mejor desempeño, aunque no es el mejor para toda situación.</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Cómo clasificar a un líder en un caso<span class="tag">síntesis de la cátedra</span></p>
+      <div class="tbl-scroll">
+      <table class="eco">
+        <thead><tr><th>Lo que hace en el caso</th><th>Iowa</th><th>Ohio</th><th>Parrilla</th></tr></thead>
+        <tbody>
+          <tr><td>Decide solo, dicta tareas, controla cada paso, no escucha</td><td><b>Autocrático</b></td><td>Alta estructura · baja consideración</td><td>≈ 9.1</td></tr>
+          <tr><td>Escucha y cuida a todos, pero no fija metas ni controla</td><td><b>Laissez-faire</b></td><td>Baja estructura · alta consideración</td><td>≈ 1.9</td></tr>
+          <tr><td>Involucra al equipo, delega, fija metas claras y da retroalimentación</td><td><b>Democrático</b></td><td>Alta estructura · alta consideración</td><td>≈ 9.9</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="note"><b>Ojo:</b> laissez-faire no es «democrático»: el democrático <b>involucra al grupo pero conduce</b>; el laissez-faire <b>deja hacer y no conduce</b>.</div>
+    </div>
+  </section>
+
+  <!-- ===================== CÓMO ES EL PARCIAL ===================== -->
+  <section class="unit reveal" id="parcial" style="--accent:var(--brand)">
+    <div class="unit-head"><div class="unit-num">§</div>
+      <div class="unit-titles"><p class="u-kicker">Todo junto</p><h2>Cómo es el parcial</h2></div></div>
+    <span class="unit-weight">Presencial · individual · sin material · 2 h · 100 puntos · se aprueba con 40</span>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Estructura y cómo se corrige</p>
+      <ul>
+        <li><b>Parte I · 20 pts:</b> preguntas cerradas (multiple choice teórico). <b>Parte II · 20 pts:</b> una o dos preguntas abiertas. <b>Parte III · 60 pts:</b> caso con 7 consignas.</li>
+        <li>El centro es <b>aplicar al caso</b>. En las consignas con <b>(*)</b>, identificar sin fundamentar con datos del caso vale <b>como máximo el 50 %</b>.</li>
+        <li>Se valora el vocabulario técnico preciso y <b>atribuir cada concepto a su autor</b>.</li>
+      </ul>
+      <p class="h-sub">Cómo resolver una consigna (*)</p>
+      <ol>
+        <li><b>Leé qué concepto pide.</b></li>
+        <li><b>Ubicá el marco y el autor.</b></li>
+        <li><b>Buscá el dato en el caso</b> (frase, cifra, conducta).</li>
+        <li><b>Conectá:</b> «<b>Es X</b> porque el caso dice <b>Y</b>, que corresponde a la definición <b>Z</b>.» No inventes datos.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <p class="h-main"><span class="dot"></span>Las 7 consignas del caso: qué estudiar en cada una</p>
+      <div class="tbl-scroll">
+      <table class="eco">
+        <thead><tr><th>#</th><th>Pide</th><th>Estudiar</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Clasificar 4 propuestas (tipo y subtipo) y qué 2 combinar ante la crisis</td><td>U3 · Fred David</td></tr>
+          <tr><td>2</td><td>Genérica de Porter, con datos, y el riesgo a vigilar</td><td>U3 · Porter</td></tr>
+          <tr><td>3</td><td>Tres evidencias de liderazgo y flexibilidad estratégica</td><td>U3 · 3.6</td></tr>
+          <tr><td>4</td><td>Postura ante el mundo, su inconveniente y 2 acciones hacia la geocéntrica</td><td>U4</td></tr>
+          <tr><td>5</td><td>Cómo cambiaron 3 dimensiones (con el dato) y si la cultura es fuerte o débil (2 factores)</td><td>U5 · cultura</td></tr>
+          <tr><td>6</td><td>Tipo de cambio, etapa de Lewin con quienes se resisten y cómo sostener el cambio</td><td>U5 · cambio</td></tr>
+          <tr><td>7</td><td>Estilo del líder (Iowa · Ohio · parrilla) y limitación de los rasgos</td><td>U6</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /view-resumen -->
+
+  <!-- ===================== QUIZ ===================== -->
+  <section id="view-quiz" class="modeview hidden">
+    <div class="qwrap">
+      <div class="qtop"><span>Pregunta <b id="q-idx">1</b> / <span id="q-total">0</span></span><span>Aciertos <b id="q-score">0</b></span><button class="btn ghost" id="q-restart">Reiniciar</button></div>
+      <div class="qcard" id="quiz-card"></div>
+    </div>
+  </section>
+
+  <!-- ===================== ESCRIBIR ===================== -->
+  <section id="view-escribir" class="modeview hidden">
+    <div class="qwrap">
+      <div class="qtop"><span>Pregunta <b id="e-idx">1</b> / <span id="e-total">0</span></span><span>De memoria <b id="e-score">0</b></span><button class="btn ghost" id="e-restart">Reiniciar</button></div>
+      <div class="qcard" id="esc-card"></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>U3 · U4 · U5 · U6 · Administración Estratégica</p>
+  </footer>
+
+</div>
+
+<script>
+  /* ============ AUTO-ACTUALIZADOR ============ */
+  /* Bump BUILD en cada deploy: las pestañas abiertas detectan la versión nueva y recargan solas. */
+  const BUILD='2026-11-18-1';
+  async function checkUpdate(){
+    try{
+      if(location.protocol==='file:')return;
+      const r=await fetch(location.pathname+'?_cb='+Math.floor(Date.now()/30000),{cache:'no-store'});
+      if(!r.ok)return;
+      const t=await r.text();
+      const m=t.match(/const BUILD='([^']+)'/);
+      if(!m||m[1]===BUILD)return;
+      const num=v=>v.split('-').map(Number);
+      const newer=(a,b)=>{const x=num(a),y=num(b);for(let i=0;i<Math.max(x.length,y.length);i++){if((x[i]||0)!==(y[i]||0))return (x[i]||0)>(y[i]||0);}return false;};
+      let done='';try{done=sessionStorage.getItem('reloadedFor')||'';}catch(e){}
+      if(newer(m[1],BUILD)&&done!==m[1]){try{sessionStorage.setItem('reloadedFor',m[1]);}catch(e){}location.reload();}
+    }catch(e){}
+  }
+  setInterval(checkUpdate,60000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkUpdate();});
+
+  /* Aparición de secciones: umbral 0 (basta un píxel visible) — con .06 las secciones largas nunca aparecían en el celular.
+     Respaldo: si en 1,5 s algo sigue oculto, o no hay IntersectionObserver, se muestra todo. */
+  const showAll=()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0,rootMargin:'0px 0px 120px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    setTimeout(showAll,1500);
+  }else{showAll();}
+  const chips={};document.querySelectorAll('.chip').forEach(c=>chips[c.getAttribute('href').slice(1)]=c);
+  const spy=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+    Object.values(chips).forEach(c=>c.style.cssText='');
+    const c=chips[e.target.id];if(c){c.style.background='var(--ink)';c.style.color='var(--paper)';}
+  }})},{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section.unit').forEach(s=>spy.observe(s));
+
+  /* ============ BANCO DE PREGUNTAS (apuntes de clase, recorte) ============ */
+  const EC=[
+   {u:'U3 · Estrategias corporativas',c:'var(--u3)',items:[
+     {q:'¿Cuáles son las cuatro familias de estrategias corporativas de Fred David?',a:'Integración, intensivas, diversificación y defensivas.'},
+     {q:'¿A qué pregunta responden las estrategias corporativas y a cuál las de Porter?',a:'Las corporativas: ¿en qué negocios estamos y cómo crecemos? Las de Porter: ¿cómo competimos?'},
+     {q:'¿Qué es la integración hacia atrás?',a:'Propiedad o control sobre los proveedores.'},
+     {q:'¿Qué es la integración hacia adelante?',a:'Propiedad o control sobre distribuidores o minoristas.'},
+     {q:'¿Qué es la integración horizontal?',a:'Propiedad o control sobre los competidores.'},
+     {q:'¿Comprarle siempre al mismo proveedor es una estrategia de integración?',a:'No: es una operación comercial. Integrar es tener propiedad o control (por ejemplo, una participación que dé el control de las decisiones).'},
+     {q:'¿Qué es la penetración en el mercado?',a:'Más participación con los productos actuales en los mercados actuales (publicidad, promociones, fidelización).'},
+     {q:'¿Qué es el desarrollo de mercados?',a:'Llevar los productos actuales a nuevas áreas geográficas o segmentos.'},
+     {q:'¿Qué es el desarrollo de productos?',a:'Producto nuevo o mejorado para los clientes actuales.'},
+     {q:'¿Producto nuevo en mercado nuevo es una estrategia intensiva?',a:'No: es diversificación.'},
+     {q:'¿Qué es la diversificación concéntrica?',a:'Productos o servicios nuevos pero relacionados con el negocio actual.'},
+     {q:'¿Qué es la diversificación horizontal?',a:'Productos o servicios nuevos no relacionados, para los clientes actuales.'},
+     {q:'¿Qué es la diversificación de conglomerados?',a:'Productos o servicios nuevos no relacionados (motivación sobre todo financiera), para clientes nuevos.'},
+     {q:'¿Qué es el recorte de gastos?',a:'Estrategia defensiva: la empresa se reagrupa reduciendo costos y activos para revertir la caída de ventas y utilidades.'},
+     {q:'¿Qué es la enajenación?',a:'Estrategia defensiva: venta de una división o parte de la empresa; la empresa sigue operando.'},
+     {q:'¿Qué es la liquidación?',a:'Estrategia defensiva: venta de todos los activos, en partes, por su valor tangible. Es el último recurso.'},
+     {q:'¿En qué orden de gravedad van las estrategias defensivas?',a:'Recorte de gastos → enajenación → liquidación.'},
+     {q:'¿Cómo distinguís integración hacia atrás de horizontal?',a:'Preguntando si el otro es mi proveedor (atrás) o mi competidor (horizontal).'},
+     {q:'¿Cómo distinguís desarrollo de mercados de integración hacia adelante?',a:'¿Llevo mi producto a un lugar nuevo (desarrollo de mercados) o tomo el control de quien lo distribuye (integración hacia adelante)?'},
+     {q:'¿Cómo distinguís desarrollo de productos de diversificación concéntrica?',a:'¿Mejoro lo que vendo (desarrollo de productos) o agrego algo nuevo aunque relacionado (concéntrica)?'},
+     {q:'¿Cómo distinguís enajenación de liquidación?',a:'¿Vendo una parte y sigo operando (enajenación) o vendo todo (liquidación)?'},
+     {q:'¿Una empresa puede aplicar varias estrategias corporativas a la vez?',a:'Sí, pueden ser varias simultáneas (por ejemplo, crecer en un área y recortar gastos en otra).'}
+   ]},
+   {u:'U3 · Estrategias genéricas de Porter',c:'var(--u3)',items:[
+     {q:'¿Cuáles son las tres estrategias genéricas de Porter?',a:'Liderazgo en costos, diferenciación y enfoque.'},
+     {q:'¿Qué es el liderazgo en costos y qué requiere?',a:'Producir bienes o servicios estandarizados al costo unitario más bajo, para consumidores sensibles al precio. Requiere escala, eficiencia y control de costos.'},
+     {q:'¿Qué es la diferenciación y qué requiere?',a:'Ofrecer productos o servicios únicos por los que el cliente pague más. Requiere atributos valorados y difíciles de copiar.'},
+     {q:'¿Qué es el enfoque y qué requiere?',a:'Atender un segmento o nicho estrecho (por costo o por diferenciación). Requiere conocer muy bien al nicho.'},
+     {q:'¿Cómo se fundamenta la elección de una estrategia genérica? (3 pasos)',a:'1) Identificar la fuente de ventaja. 2) Verificar que la empresa pueda sostenerla. 3) Descartar las otras dos con datos del caso.'},
+     {q:'¿Qué riesgos tiene la estrategia de diferenciación? (Fred David)',a:'Que los clientes no valoren el producto exclusivo lo suficiente como para justificar su precio, o que los competidores copien rápido las características diferenciadoras.'},
+     {q:'¿Qué riesgos tiene la estrategia de enfoque? (Fred David)',a:'Que muchos competidores reconozcan la estrategia exitosa y la imiten, o que las preferencias de los consumidores se desvíen hacia lo que desea el mercado en general.'},
+     {q:'¿Cuáles son los errores frecuentes con Porter?',a:'Elegir liderazgo en costos para una pyme sin escala; llamar «enfoque» a cualquier diferenciación (exige un segmento estrecho y explícito); responder con una estrategia de Fred David cuando se pregunta por Porter.'}
+   ]},
+   {u:'U3 · Liderazgo y flexibilidad estratégica',c:'var(--u3)',items:[
+     {q:'¿Qué es el liderazgo estratégico? (3 componentes)',a:'Anticipar y prever lo que puede ocurrir · mantener la flexibilidad · facultar a otros para generar el cambio estratégico (no decidir todo en soledad).'},
+     {q:'¿Qué es la flexibilidad estratégica? (3 componentes)',a:'Reconocer los cambios importantes del entorno · comprometer recursos con rapidez para responder · reconocer cuándo una decisión no funciona y corregirla.'},
+     {q:'¿Qué señales muestran flexibilidad estratégica?',a:'Tableros de monitoreo, contratos con cláusulas de salida, revisiones periódicas del plan.'},
+     {q:'¿Qué señal muestra falta de flexibilidad?',a:'«Ya invertimos demasiado como para echarnos atrás» (escalada del compromiso).'}
+   ]},
+   {u:'U4 · Perspectivas globales',c:'var(--u4)',items:[
+     {q:'¿Qué postura es etnocéntrica?',a:'Los mejores métodos son los del país de la casa matriz. Orientación: la patria.'},
+     {q:'¿Qué postura es policéntrica?',a:'Los gerentes locales conocen los mejores métodos. Orientación: el país anfitrión.'},
+     {q:'¿Qué postura es geocéntrica?',a:'Aprovechar los mejores métodos y empleados de todo el mundo. Orientación: el mundo.'},
+     {q:'¿Cuáles son los inconvenientes de la postura etnocéntrica?',a:'Administración ineficaz, inflexibilidad, retrocesos sociales y políticos.'},
+     {q:'¿Cuáles son los inconvenientes de la postura policéntrica?',a:'Duplicación del trabajo, menor eficiencia y dificultad para sostener los objetivos globales.'},
+     {q:'¿Cuáles son los inconvenientes de la postura geocéntrica?',a:'Es difícil alcanzar las metas, y los gerentes necesitan conocimiento local y global.'},
+     {q:'¿Cuáles son las ventajas de la etnocéntrica?',a:'Estructura simple y control más estrecho.'},
+     {q:'¿Cuáles son las ventajas de la policéntrica?',a:'Conocimiento del mercado local, apoyo del gobierno local, gerentes locales motivados.'},
+     {q:'¿Cómo se reconoce una postura policéntrica en un caso?',a:'La matriz no interviene, cada filial define a su manera; riesgo de perder la identidad común («ellos conocen su mercado, mejor no nos metemos»).'},
+     {q:'¿En qué se diferencian la geocéntrica y la policéntrica?',a:'Geocentrismo es combinar (estándares globales + adaptación local); no es delegar todo.'}
+   ]},
+   {u:'U4 · Tipos de organización global',c:'var(--u4)',items:[
+     {q:'¿Qué es una corporación multinacional y con qué postura se vincula?',a:'Se dirige desde la casa matriz del país de origen: postura etnocéntrica.'},
+     {q:'¿Qué es una corporación trasnacional y con qué postura se vincula?',a:'Descentraliza las decisiones y da más autonomía local: postura policéntrica.'},
+     {q:'¿Qué es una organización sin fronteras y con qué postura se vincula?',a:'Aprovecha conocimientos y recursos de distintos países: postura geocéntrica.'}
+   ]},
+   {u:'U5 · Cultura organizacional',c:'var(--u5)',items:[
+     {q:'¿Qué es la cultura organizacional según Robbins y Coulter?',a:'Un sistema de significados e ideas compartidos por los integrantes, que determina en buena medida cómo se comportan. Describe; no evalúa.'},
+     {q:'¿Cuáles son las siete dimensiones de la cultura?',a:'Innovación y riesgos · atención a los detalles · orientación a los resultados · orientación a las personas · orientación a los equipos · energía (agresividad) · estabilidad.'},
+     {q:'¿Qué mide la orientación a los resultados?',a:'El grado en que importan los resultados más que el modo de lograrlos.'},
+     {q:'¿Qué mide la orientación a las personas?',a:'El grado en que las decisiones consideran el efecto en la gente.'},
+     {q:'¿Qué mide la energía (agresividad)?',a:'El grado en que los empleados son enérgicos y competitivos frente a cooperadores.'},
+     {q:'¿Qué mide la estabilidad?',a:'El grado en que las decisiones tienden a mantener el statu quo.'},
+     {q:'¿Cómo se responde una dimensión de la cultura en un caso?',a:'Nombrar la dimensión, decir si es alta o baja y citar el dato del caso que lo muestra.'},
+     {q:'¿Se usan Hofstede o GLOBE para analizar la cultura de una empresa?',a:'No: describen culturas nacionales (Unidad 4). Para una organización se usan las siete dimensiones.'},
+     {q:'¿En qué se diferencian cultura y clima?',a:'Cultura: «¿cómo hacemos las cosas acá?», descriptiva, estable, valores y normas. Clima: «¿cómo me siento trabajando acá?», evaluativo (positivo o negativo), puede variar rápido.'},
+     {q:'¿Qué es una cultura fuerte?',a:'Valores fundamentales muy arraigados y difundidos; mayor compromiso, los empleados saben qué se espera. Riesgo: puede impedir ensayar métodos nuevos en épocas de cambio.'},
+     {q:'¿Qué es una cultura débil?',a:'La organización no deja claro qué es importante y qué no; poca influencia sobre el comportamiento.'},
+     {q:'¿De qué depende la fuerza de una cultura? (4 factores)',a:'Tamaño, antigüedad, rotación de empleados y fuerza del origen (influencia de los fundadores).'},
+     {q:'¿Cómo afecta la rotación a la cultura?',a:'Si la gente se va, los valores no se transmiten: la cultura se debilita.'},
+     {q:'¿Muchas reglas escritas hacen fuerte a una cultura?',a:'No: formalización no es fuerza. Lo que define la fuerza es cuán arraigados y compartidos están los valores.'}
+   ]},
+   {u:'U5 · Cambio organizacional',c:'var(--u5)',items:[
+     {q:'¿Qué es el enfoque de aguas tranquilas?',a:'La organización es un barco en un mar calmo; el cambio es una interrupción ocasional del equilibrio, se resuelve y vuelve la estabilidad. Se corresponde con el modelo de Lewin.'},
+     {q:'¿Qué es el enfoque de rápidos en aguas turbulentas?',a:'La organización es una balsa en un río con rápidos; el cambio es permanente y la incertidumbre, la norma; los gerentes deben adaptarse en forma continua. Describe mejor el entorno actual.'},
+     {q:'¿Cuáles son las tres etapas del modelo de Lewin?',a:'Descongelamiento, cambio y recongelamiento.'},
+     {q:'¿Qué es el descongelamiento?',a:'Preparar a la organización: aumentar las fuerzas que impulsan el cambio y/o reducir las que lo frenan.'},
+     {q:'¿Qué es el cambio en el modelo de Lewin?',a:'Pasar al nuevo estado: aplicar las nuevas estructuras, tecnologías o comportamientos.'},
+     {q:'¿Qué es el recongelamiento?',a:'Estabilizar el nuevo estado para que se sostenga en el tiempo (formalizar procedimientos, reconocer a quienes lo adoptan, medir y comunicar mejoras).'},
+     {q:'¿Qué acciones corresponden al descongelamiento?',a:'Mostrar con datos por qué hay que cambiar, aclarar qué no va a cambiar, escuchar los temores.'},
+     {q:'¿Cuáles son los tres tipos de cambio?',a:'De estructura, de tecnología y de personas.'},
+     {q:'¿Qué abarca el cambio de estructura?',a:'Relaciones de autoridad, coordinación, empowerment, rediseño de puestos, formalización.'},
+     {q:'¿Qué abarca el cambio de tecnología?',a:'La forma de hacer el trabajo: métodos y equipos que se usan.'},
+     {q:'¿Qué abarca el cambio de personas?',a:'Actitudes, expectativas, percepciones y comportamientos (técnicas de desarrollo organizacional).'},
+     {q:'¿Cuáles son las seis acciones ante la resistencia al cambio?',a:'Educación y comunicación, participación, facilitación y apoyo, negociación, manipulación y control, coerción.'}
+   ]},
+   {u:'U6 · Líder y liderazgo',c:'var(--u6)',items:[
+     {q:'¿Qué es un líder según Robbins y Coulter?',a:'Alguien que puede influir en otros y que posee autoridad gerencial.'},
+     {q:'¿Qué es el liderazgo según Robbins y Coulter?',a:'El proceso de influir en un grupo para orientarlo hacia el logro de objetivos.'},
+     {q:'¿Qué es el liderazgo según Chiavenato?',a:'La capacidad de influir en las personas para que ejecuten lo que deben hacer. Combina la capacidad del líder de motivar con la tendencia de los seguidores a seguir a quien ven como medio para sus propios objetivos.'},
+     {q:'¿Qué diferencia hay entre gerente y líder?',a:'El gerente es asignado e influye por la autoridad formal del cargo; el líder es designado o surge, y su influencia va más allá de la autoridad formal.'},
+     {q:'¿Todo gerente es líder? ¿Todo líder es gerente?',a:'Todo gerente debería ser líder; no todo líder debe ser gerente.'},
+     {q:'¿Cuáles son las fuentes del poder?',a:'Las que vienen con el puesto: legítimo, coercitivo y de recompensa. Las que se construyen: experto y referente.'}
+   ]},
+   {u:'U6 · Rasgos y teorías conductuales',c:'var(--u6)',items:[
+     {q:'¿Cuáles son los siete rasgos del liderazgo (Robbins y Coulter)?',a:'Impulso (dinamismo) · deseo de dirigir · honestidad e integridad · confianza en sí mismo · inteligencia · conocimientos del trabajo · extraversión.'},
+     {q:'¿Cuál es la limitación de la teoría de los rasgos?',a:'No se encontró un conjunto de rasgos que distinga siempre a los líderes; los rasgos no explican por sí solos la eficacia: importa lo que el líder hace y la situación.'},
+     {q:'¿Cómo se aplican los rasgos en un caso?',a:'Citando la frase del caso que evidencia cada rasgo.'},
+     {q:'¿Cuáles son los tres estilos de la Universidad de Iowa?',a:'Autocrático (centraliza, decide solo), democrático (involucra, delega, retroalimenta) y laissez-faire (libertad total al grupo).'},
+     {q:'¿Cuál fue la conclusión de Iowa?',a:'El democrático fue el más eficaz al principio, luego resultados mixtos; mayor satisfacción con el democrático.'},
+     {q:'¿Cuáles son las dos dimensiones de Ohio?',a:'Estructura de iniciación (organiza el trabajo para lograr objetivos) y consideración (atiende ideas y sentimientos de los seguidores).'},
+     {q:'¿Qué concluyó Ohio?',a:'El líder «alto-alto» logró con frecuencia alto desempeño y satisfacción, pero no en todas las situaciones.'},
+     {q:'¿Qué estudió Michigan?',a:'Líder orientado hacia los empleados vs. orientado hacia la producción; favoreció al orientado hacia los empleados (mayor productividad y satisfacción).'},
+     {q:'¿Cuáles son los ejes de la parrilla gerencial?',a:'Interés por la producción e interés por el personal, de 1 a 9.'},
+     {q:'¿Qué es 9.9 en la parrilla?',a:'Gerencia de equipos: alto interés por ambas dimensiones; el estilo de mejor desempeño.'},
+     {q:'¿Qué es 1.9 en la parrilla?',a:'Club campestre: mucho interés por las personas, poco por la tarea.'},
+     {q:'¿Qué es 9.1 en la parrilla?',a:'Gerencia de tareas: mucho interés por la producción, poco por la gente.'},
+     {q:'¿Qué es 1.1 y qué es 5.5 en la parrilla?',a:'1.1 gerencia empobrecida (mínimo esfuerzo en ambas); 5.5 a mitad del camino (equilibrio intermedio).'},
+     {q:'¿Cómo clasificás a quien escucha y cuida a todos pero no fija metas ni controla?',a:'Laissez-faire (Iowa), baja estructura y alta consideración (Ohio), orientado al empleado (Michigan), ≈ 1.9 (parrilla). No es democrático.'},
+     {q:'¿Cómo clasificás a quien decide solo, dicta tareas y controla cada paso?',a:'Autocrático (Iowa), alta estructura y baja consideración (Ohio), orientado a la producción, ≈ 9.1.'},
+     {q:'¿Cómo clasificás a quien involucra al equipo, delega, fija metas y da retroalimentación?',a:'Democrático (Iowa), alta estructura y alta consideración (Ohio), orientado al empleado, ≈ 9.9.'}
+   ]},
+   {u:'Cómo se rinde',c:'var(--brand)',items:[
+     {q:'¿Cuál es la estructura del parcial?',a:'Parte I preguntas cerradas (20 pts), Parte II preguntas abiertas (20 pts), Parte III caso (60 pts). Dura 2 h, vale 100 puntos y se aprueba con 40.'},
+     {q:'¿Qué pasa si identificás bien el concepto pero no lo fundamentás con datos del caso?',a:'El máximo de la consigna es el 50 %.'},
+     {q:'¿Cómo se redacta una respuesta con fundamentación?',a:'«Es X porque el caso dice Y, que corresponde a la definición Z.»'},
+     {q:'¿Cuáles son los 4 pasos para resolver una consigna con (*)?',a:'Leer qué concepto pide · ubicar el marco y el autor · buscar el dato en el caso · conectar dato y concepto.'}
+   ]}
+  ];
+  const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+  const flat=EC.flatMap(t=>t.items.map(it=>({...it,u:t.u,c:t.c})));
+
+  /* ---- QUIZ ---- */
+  let quiz=[],qi=0,qscore=0;
+  function buildQuiz(){
+    quiz=shuffle(EC.flatMap(t=>t.items.map(it=>{
+      let pool=t.items.filter(x=>x.a!==it.a).map(x=>x.a);
+      if(pool.length<3)pool=pool.concat(shuffle(flat.filter(x=>x.u!==t.u).map(x=>x.a)));
+      return {u:t.u,c:t.c,q:it.q,correct:it.a,options:shuffle([it.a,...shuffle(pool).slice(0,3)])};
+    })));
+    qi=0;qscore=0;document.getElementById('q-total').textContent=quiz.length;renderQ();
+  }
+  function renderQ(){
+    document.getElementById('q-idx').textContent=qi+1;
+    document.getElementById('q-score').textContent=qscore;
+    const it=quiz[qi],card=document.getElementById('quiz-card');
+    card.style.setProperty('--accent',it.c);
+    card.innerHTML='<div class="qgroup">'+it.u+'</div><div class="qq">'+it.q+'</div><div id="opts">'+it.options.map((o,i)=>'<button class="opt" data-i="'+i+'">'+o+'</button>').join('')+'</div><div class="fb" id="fb"></div><div class="qactions"><button class="btn hidden" id="q-next">Siguiente →</button></div>';
+    const opts=card.querySelectorAll('.opt');
+    opts.forEach(b=>b.addEventListener('click',()=>{
+      const ok=it.options[+b.dataset.i]===it.correct;
+      opts.forEach(x=>{x.disabled=true;if(it.options[+x.dataset.i]===it.correct){x.classList.add('correct');x.innerHTML+=' <span class="mk">✓</span>';}});
+      const fb=document.getElementById('fb');
+      if(ok){qscore++;fb.textContent='¡Correcto!';fb.className='fb ok';}
+      else{b.classList.add('wrong');b.innerHTML+=' <span class="mk">✕</span>';fb.textContent='La respuesta correcta es la marcada en verde.';fb.className='fb no';}
+      document.getElementById('q-score').textContent=qscore;
+      const n=document.getElementById('q-next');n.classList.remove('hidden');
+      n.textContent=qi+1<quiz.length?'Siguiente →':'Ver resultado';
+      n.onclick=()=>{qi+1<quiz.length?(qi++,renderQ()):resultQ();};
+    }));
+  }
+  function resultQ(){
+    const pct=Math.round(qscore/quiz.length*100),card=document.getElementById('quiz-card');
+    card.style.setProperty('--accent','var(--brand)');
+    card.innerHTML='<div class="qgroup">Resultado</div><div class="qq">'+qscore+'/'+quiz.length+' · '+pct+'%</div><p style="color:var(--ink-soft);margin-bottom:20px">'+(pct>=80?'Te lo sabés.':pct>=50?'Vas bien; repasá las que fallaste.':'Volvé al Resumen y reintentá.')+'</p><div class="qactions"><button class="btn" id="q-again">Reintentar</button></div>';
+    document.getElementById('q-idx').textContent=quiz.length;
+    document.getElementById('q-again').onclick=buildQuiz;
+  }
+
+  /* ---- ESCRIBIR ---- */
+  let esc=[],ei=0,escore=0;
+  function buildEsc(){esc=shuffle(flat);ei=0;escore=0;document.getElementById('e-total').textContent=esc.length;renderE();}
+  function renderE(){
+    document.getElementById('e-idx').textContent=ei+1;
+    document.getElementById('e-score').textContent=escore;
+    const it=esc[ei],card=document.getElementById('esc-card');
+    card.style.setProperty('--accent',it.c);
+    card.innerHTML='<div class="qgroup">'+it.u+'</div><div class="qq">'+it.q+'</div><textarea id="e-input" class="esc-input" placeholder="Escribí tu respuesta de memoria…  (Ctrl+Enter para revelar)" spellcheck="false"></textarea><div class="qactions"><button class="btn" id="e-reveal">Revelar respuesta</button></div><div id="e-answer" class="esc-answer hidden"></div>';
+    const ta=document.getElementById('e-input');ta.focus();
+    function reveal(){
+      if(ta.disabled)return;
+      const yours=(ta.value.trim()||'(no escribiste nada)').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+      const ans=document.getElementById('e-answer');
+      ans.innerHTML='<div class="esc-yours"><span class="esc-lbl">Lo que escribiste</span><p>'+yours+'</p></div><div class="esc-ok"><span class="esc-lbl">Respuesta</span><p class="ans">'+it.a+'</p></div><div class="esc-rate">¿Te salió de memoria?<button class="rate" data-r="1">Sí</button><button class="rate" data-r="m">Más o menos</button><button class="rate" data-r="0">No</button></div>';
+      ans.classList.remove('hidden');
+      document.getElementById('e-reveal').disabled=true;ta.disabled=true;
+      ans.querySelectorAll('.rate').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.r==='1')escore++;ei+1<esc.length?(ei++,renderE()):resultE();}));
+      ans.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }
+    ta.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')reveal();});
+    document.getElementById('e-reveal').addEventListener('click',reveal);
+  }
+  function resultE(){
+    document.getElementById('e-idx').textContent=esc.length;
+    document.getElementById('e-score').textContent=escore;
+    const card=document.getElementById('esc-card');card.style.setProperty('--accent','var(--brand)');
+    card.innerHTML='<div class="qgroup">Resultado</div><div class="qq">'+escore+'/'+esc.length+' de memoria</div><div class="qactions"><button class="btn" id="e-again">Reintentar</button></div>';
+    document.getElementById('e-again').onclick=buildEsc;
+  }
+
+  /* ---- NAVEGACIÓN DE MODOS ---- */
+  const views={resumen:document.getElementById('view-resumen'),quiz:document.getElementById('view-quiz'),escribir:document.getElementById('view-escribir')};
+  document.getElementById('modes').addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;
+    document.querySelectorAll('#modes button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const m=b.dataset.mode;
+    Object.entries(views).forEach(([k,el])=>el.classList.toggle('hidden',k!==m));
+    document.getElementById('navchips').classList.toggle('hidden',m!=='resumen');
+    if(m==='quiz'&&!quiz.length)buildQuiz();
+    if(m==='escribir'&&!esc.length)buildEsc();
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+  document.getElementById('q-restart').addEventListener('click',buildQuiz);
+  document.getElementById('e-restart').addEventListener('click',buildEsc);
+</script>
+</body>
+</html>
