@@ -200,7 +200,7 @@
     .card{break-inside:avoid;background:#fff}
     #view-quiz,#view-escribir{display:none!important}
   }
-  @media(max-width:720px){table.matrix{border-spacing:3px}table.matrix td{padding:8px 7px;font-size:13px}table.matrix td>b:first-child{font-size:14.5px}table.matrix th.side{width:20px;font-size:9px}table.matrix th{font-size:9px}.tbl-scroll table.eco{min-width:0!important;font-size:13px}table.eco th,table.eco td{padding:6px 6px}.mono{font-size:.85em}}</style>
+  @media(max-width:720px){table.matrix{border-spacing:3px}table.matrix td{padding:8px 7px;font-size:13px}table.matrix td>b:first-child{font-size:14.5px}table.matrix th.side{width:20px;font-size:9px}table.matrix th{font-size:9px}.tbl-scroll table.eco{min-width:0!important;font-size:13px}table.eco th,table.eco td{padding:6px 6px}.mono{font-size:.85em}}  .card{scroll-margin-top:156px}.nav-sub{max-width:1100px;margin:0 auto;padding:0 28px 12px;display:flex;gap:6px;flex-wrap:wrap}.chip.sub{font-size:11px;font-weight:600;border-width:1px;border-color:var(--ink-soft);color:var(--ink-soft);padding:3px 10px}.chip.sub:hover{color:var(--paper)}.chip.on{background:var(--ink);color:var(--paper)}@media(max-width:720px){.card{scroll-margin-top:132px}.nav-sub{flex-wrap:nowrap;overflow-x:auto;padding:0 14px 8px;scrollbar-width:none}.nav-sub::-webkit-scrollbar{display:none}.chip.sub{flex:none;white-space:nowrap}}</style>
 </head>
 <body>
 <nav>
@@ -215,6 +215,7 @@
   <div class="nav-chips" id="navchips">
     <a class="chip" href="#u3">U3 · Estrategias</a><a class="chip" href="#u4">U4 · Globales</a><a class="chip" href="#u5">U5 · Cultura y cambio</a><a class="chip" href="#u6">U6 · Liderazgo</a><a class="chip" href="#parcial">Cómo es el parcial</a>
   </div>
+  <div class="nav-sub hidden" data-for="u3"><a class="chip sub" href="#s1">Corporativas</a><a class="chip sub" href="#s2">Pares que se confunden</a><a class="chip sub" href="#s3">Porter</a><a class="chip sub" href="#s4">Liderazgo y flexibilidad</a></div><div class="nav-sub hidden" data-for="u4"><a class="chip sub" href="#s5">Tres posturas</a><a class="chip sub" href="#s6">Organización global</a></div><div class="nav-sub hidden" data-for="u5"><a class="chip sub" href="#s7">Cultura y dimensiones</a><a class="chip sub" href="#s8">Cultura vs. clima</a><a class="chip sub" href="#s9">Fuertes y débiles</a><a class="chip sub" href="#s10">Cambio</a></div><div class="nav-sub hidden" data-for="u6"><a class="chip sub" href="#s11">Líder y liderazgo</a><a class="chip sub" href="#s12">Rasgos</a><a class="chip sub" href="#s13">Conductuales</a><a class="chip sub" href="#s14">Clasificar un líder</a></div><div class="nav-sub hidden" data-for="parcial"><a class="chip sub" href="#s15">Estructura</a><a class="chip sub" href="#s16">Las 7 consignas</a></div>
 </nav>
 
 <div class="wrap">
@@ -238,7 +239,7 @@
       <div class="unit-titles"><p class="u-kicker">Unidad 3 · puntos 3.4 · 3.5 · 3.6</p><h2>Estrategias</h2></div></div>
     <span class="unit-weight">Corporativas (Fred David) · competitivas (Porter) · liderazgo y flexibilidad estratégica</span>
 
-    <div class="card">
+    <div class="card" id="s1">
       <p class="h-main"><span class="dot"></span>Estrategias corporativas<span class="tag">Fred David</span></p>
       <p class="def">Determinan <b>hacia dónde puede crecer</b> una empresa (¿en qué negocios estamos y cómo crecemos?). Una empresa puede <b>combinar varias</b>. Las de Porter responden otra pregunta: ¿cómo competimos?</p>
       <div class="tbl-scroll">
@@ -264,7 +265,7 @@
       <div class="note"><b>Integrar = tener propiedad o control</b> (ej.: una participación que dé el control de las decisiones). Comprarle siempre al mismo proveedor es solo una operación comercial.</div>
     </div>
 
-    <div class="card">
+    <div class="card" id="s2">
       <p class="h-main"><span class="dot"></span>Pares que se confunden</p>
       <div class="tbl-scroll">
       <table class="eco">
@@ -278,7 +279,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" id="s3">
       <p class="h-main"><span class="dot"></span>Estrategias genéricas de Porter<span class="tag">cómo compite una empresa</span></p>
       <ul>
         <li><b>Liderazgo en costos:</b> ser el productor con el <b>menor costo</b>; se compite con precios bajos.</li>
@@ -302,7 +303,7 @@
       </ul></div>
     </div>
 
-    <div class="card">
+    <div class="card" id="s4">
       <p class="h-main"><span class="dot"></span>Liderazgo estratégico y flexibilidad estratégica<span class="tag">3.6</span></p>
       <div class="grid2">
         <div class="mini"><b>Liderazgo estratégico</b> · <i>preguntarnos si la acción apunta a las personas y el rumbo</i>
@@ -320,7 +321,7 @@
       <div class="unit-titles"><p class="u-kicker">Unidad 4 · punto 4.1</p><h2>Perspectivas globales</h2></div></div>
     <span class="unit-weight">Etnocéntrica · policéntrica · geocéntrica</span>
 
-    <div class="card">
+    <div class="card" id="s5">
       <p class="h-main"><span class="dot"></span>Tres posturas ante el mundo<span class="tag">Robbins/Coulter</span></p>
       <div class="tbl-scroll">
       <table class="eco">
@@ -335,7 +336,7 @@
       <div class="note"><b>Atención: geocéntrica ≠ policéntrica.</b> Geocentrismo es <b>combinar</b>, no delegar todo. Tampoco equivale a volver a la etnocéntrica.</div>
     </div>
 
-    <div class="card">
+    <div class="card" id="s6">
       <p class="h-main"><span class="dot"></span>Tipos de organización global<span class="tag">clase 07/10 · puede salir en un caso</span></p>
       <div class="grid3">
         <div class="mini"><b>Corporación multinacional</b><br>Se dirige desde la <b>casa matriz</b> del país de origen. ↔ <b>etnocéntrica</b>.</div>
@@ -351,7 +352,7 @@
       <div class="unit-titles"><p class="u-kicker">Unidad 5 · puntos 5.1 · 5.2 · 5.5 · 5.6</p><h2>Cultura y cambio</h2></div></div>
     <span class="unit-weight">Siete dimensiones · fuerte y débil · cambio · Lewin · resistencia</span>
 
-    <div class="card">
+    <div class="card" id="s7">
       <p class="h-main"><span class="dot"></span>Cultura organizacional y sus siete dimensiones<span class="tag">Robbins/Coulter</span></p>
       <p class="def"><b>Cultura:</b> sistema de significados y valores <b>compartidos</b> que distingue a una organización de otra y orienta cómo piensan, actúan y deciden. <b>Describe; no evalúa.</b></p>
       <div class="tbl-scroll">
@@ -374,7 +375,7 @@
       </ul></div>
     </div>
 
-    <div class="card">
+    <div class="card" id="s8">
       <p class="h-main"><span class="dot"></span>Cultura vs. clima<span class="tag">Chiavenato</span></p>
       <div class="tbl-scroll">
       <table class="eco">
@@ -387,7 +388,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" id="s9">
       <p class="h-main"><span class="dot"></span>Culturas fuertes y débiles</p>
       <div class="grid2">
         <div class="mini okk"><b>Fuerte</b><br>Valores <b>muy arraigados y compartidos</b> por la mayoría: compromiso, pertenencia, coordinación y menos supervisión. Riesgo: puede impedir ensayar métodos nuevos en épocas de cambio.</div>
@@ -398,7 +399,7 @@
       <div class="note"><b>Error frecuente:</b> confundir formalización con fuerza. Muchas reglas escritas no hacen fuerte a una cultura: lo que define la fuerza es cuán arraigados y compartidos están los valores.</div>
     </div>
 
-    <div class="card">
+    <div class="card" id="s10">
       <p class="h-main"><span class="dot"></span>Cambio organizacional<span class="tag">Robbins/Coulter · cap. 13</span></p>
       <p class="def"><b>Cambio:</b> modificación de la estructura, la tecnología o las personas para mejorar el funcionamiento o adaptarse al entorno.</p>
       <div class="grid3">
@@ -428,7 +429,7 @@
       <div class="unit-titles"><p class="u-kicker">Unidad 6 · puntos 7.1 · 7.2 · 7.3</p><h2>Liderazgo</h2></div></div>
     <span class="unit-weight">Líder y liderazgo · rasgos · teorías conductuales · parrilla gerencial</span>
 
-    <div class="card">
+    <div class="card" id="s11">
       <p class="h-main"><span class="dot"></span>Líder y liderazgo</p>
       <p class="def"><b>Dirección:</b> motivación + comunicación + liderazgo (rol interpersonal).</p>
       <p class="def"><b>Liderazgo (Robbins/Coulter):</b> proceso de <b>influir en un grupo</b> para orientarlo hacia el logro de objetivos. No es solo dar órdenes: es motivar y guiar. <b>Líder:</b> alguien que puede influir en otros y posee autoridad gerencial.</p>
@@ -446,7 +447,7 @@
       <p class="def"><b>Autoridad sin liderazgo:</b> el gerente que solo tiene los poderes derivados del puesto. <b>Liderazgo sin cargo:</b> un empleado con poder personal o informal.</p>
     </div>
 
-    <div class="card">
+    <div class="card" id="s12">
       <p class="h-main"><span class="dot"></span>Teoría de los rasgos: lo que el líder <i>es</i><span class="tag">Robbins/Coulter</span></p>
       <p class="def">Busca las características personales que diferencian a los líderes. Los siete rasgos: <b>dinamismo</b> (impulso, ambición) · <b>deseo de dirigir</b> · <b>honestidad e integridad</b> (coherencia entre lo que dice y hace; con la capacidad, reaparece en la confianza) · <b>confianza en sí mismo</b> · <b>inteligencia</b> · <b>conocimientos pertinentes</b> del trabajo · <b>extraversión</b>.</p>
       <div class="star"><span class="lbl">Limitación</span><ul>
@@ -455,7 +456,7 @@
       </ul></div>
     </div>
 
-    <div class="card">
+    <div class="card" id="s13">
       <p class="h-main"><span class="dot"></span>Teorías conductuales: lo que el líder <i>hace</i><span class="tag">Robbins/Coulter</span></p>
       <div class="grid3">
         <div class="mini"><b>Iowa</b>
@@ -479,7 +480,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" id="s14">
       <p class="h-main"><span class="dot"></span>Cómo clasificar a un líder en un caso<span class="tag">síntesis de la cátedra</span></p>
       <div class="tbl-scroll">
       <table class="eco">
@@ -501,7 +502,7 @@
       <div class="unit-titles"><p class="u-kicker">Todo junto</p><h2>Cómo es el parcial</h2></div></div>
     <span class="unit-weight">Presencial · individual · sin material · 2 h · 100 puntos · se aprueba con 40</span>
 
-    <div class="card">
+    <div class="card" id="s15">
       <p class="h-main"><span class="dot"></span>Estructura y cómo se corrige</p>
       <ul>
         <li><b>Parte I · 20 pts:</b> preguntas cerradas (multiple choice teórico). <b>Parte II · 20 pts:</b> una o dos preguntas abiertas. <b>Parte III · 60 pts:</b> caso con 7 consignas.</li>
@@ -517,7 +518,7 @@
       </ol>
     </div>
 
-    <div class="card">
+    <div class="card" id="s16">
       <p class="h-main"><span class="dot"></span>Las 7 consignas del caso: qué estudiar en cada una</p>
       <div class="tbl-scroll">
       <table class="eco">
@@ -563,7 +564,7 @@
 <script>
   /* ============ AUTO-ACTUALIZADOR ============ */
   /* Bump BUILD en cada deploy: las pestañas abiertas detectan la versión nueva y recargan solas. */
-  const BUILD='2026-11-18-7';
+  const BUILD='2026-11-18-8';
   async function checkUpdate(){
     try{
       if(location.protocol==='file:')return;
@@ -804,6 +805,16 @@
   });
   document.getElementById('q-restart').addEventListener('click',buildQuiz);
   document.getElementById('e-restart').addEventListener('click',buildEsc);
+
+  (function(){
+    const chips=[...document.querySelectorAll('#navchips .chip')], subs=[...document.querySelectorAll('.nav-sub')];
+    function show(id){subs.forEach(s=>s.classList.toggle('hidden',s.dataset.for!==id));chips.forEach(c=>c.classList.toggle('on',c.getAttribute('href')==='#'+id));}
+    chips.forEach(c=>c.addEventListener('click',()=>show(c.getAttribute('href').slice(1))));
+    document.getElementById('navchips').classList.contains('hidden');
+    document.getElementById('modes').addEventListener('click',()=>subs.forEach(s=>s.classList.add('hidden')));
+    const secs=['u3','u4','u5','u6','parcial'].map(i=>document.getElementById(i));
+    addEventListener('scroll',()=>{if(document.getElementById('view-resumen').classList.contains('hidden'))return;let cur=null;secs.forEach(e=>{if(e.getBoundingClientRect().top<160)cur=e.id;});if(cur)show(cur);},{passive:true});
+  })();
 </script>
 </body>
 </html>
